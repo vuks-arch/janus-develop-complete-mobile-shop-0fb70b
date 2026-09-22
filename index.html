@@ -283,6 +283,97 @@
       font-size: 0.98rem;
     }
 
+    /* ---------- PHONE PRODUCT GRID (PriceOye style) ---------- */
+    .phone-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.6rem;
+      margin-top: 2rem;
+    }
+
+    .phone-card {
+      background: var(--card-white);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(10, 75, 122, 0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .phone-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .phone-thumb {
+      background: #f4f8fc;
+      padding: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 220px;
+    }
+
+    .phone-thumb img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.12));
+    }
+
+    .phone-body {
+      padding: 1.2rem 1.3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .phone-brand {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #5e7a94;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .phone-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .phone-specs {
+      font-size: 0.85rem;
+      color: #5e7a94;
+      margin-bottom: 0.9rem;
+    }
+
+    .phone-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      margin-top: auto;
+    }
+
+    .phone-price small {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #5e7a94;
+      text-decoration: line-through;
+      margin-left: 0.4rem;
+    }
+
+    .phone-card .btn {
+      width: 100%;
+      text-align: center;
+      padding: 0.75rem 1rem;
+    }
+
     /* ---------- SERVICES / MENU (phone plans) ---------- */
     .services-grid {
       display: grid;
@@ -665,6 +756,7 @@
       <nav>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
+          <li><a href="#phones">Phones</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#testimonials">Reviews</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -676,6 +768,7 @@
     <div class="mobile-nav" id="mobileNav">
       <ul>
         <li><a href="#about">About</a></li>
+        <li><a href="#phones">Phones</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#testimonials">Reviews</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -691,28 +784,134 @@
           <h1>Your perfect phone, <span>expertly curated</span></h1>
           <p>Discover the latest smartphones, accessories, and repair services — all under one roof. Trade in, upgrade, and get personal advice from real tech enthusiasts.</p>
           <div class="hero-cta">
-            <a href="#services" class="btn">Explore devices</a>
+            <a href="#phones" class="btn">Shop phones</a>
             <a href="#contact" class="btn btn-outline">Visit us</a>
           </div>
         </div>
         <div class="hero-image">
-          <!-- inline SVG phone illustration -->
-          <svg class="phone-svg" viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="25" y="10" width="150" height="300" rx="28" fill="#0A4B7A" stroke="#F5A623" stroke-width="4"/>
-            <rect x="40" y="40" width="120" height="220" rx="12" fill="#E2EDF7"/>
-            <circle cx="100" cy="285" r="12" fill="#F5A623"/>
-            <rect x="65" y="70" width="70" height="8" rx="4" fill="#0A4B7A" opacity="0.3"/>
-            <rect x="65" y="90" width="70" height="8" rx="4" fill="#0A4B7A" opacity="0.3"/>
-            <rect x="65" y="110" width="50" height="8" rx="4" fill="#0A4B7A" opacity="0.3"/>
-            <rect x="65" y="140" width="70" height="40" rx="8" fill="#1E6B9E" opacity="0.2"/>
-            <rect x="65" y="195" width="70" height="40" rx="8" fill="#1E6B9E" opacity="0.2"/>
-          </svg>
+          <!-- real phone image -->
+          <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?auto=format&fit=crop&w=600&q=80" alt="Latest smartphone" style="width:80%; height:auto; border-radius:24px; filter: drop-shadow(0 12px 18px rgba(0,0,0,0.18));">
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PHONES (PriceOye style grid) -->
+    <section id="phones" class="section-light">
+      <div class="container">
+        <h2>Featured phones</h2>
+        <p class="section-subhead">Latest models at honest prices. Tap Buy to order — free delivery and 1‑year official warranty on every device.</p>
+        <div class="phone-grid">
+
+          <div class="phone-card">
+            <div class="phone-thumb">
+              <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=500&q=80" alt="Apple iPhone 15 Pro">
+            </div>
+            <div class="phone-body">
+              <div class="phone-brand">Apple</div>
+              <div class="phone-name">iPhone 15 Pro</div>
+              <div class="phone-specs">6.1" · 256GB · Titanium</div>
+              <div class="phone-price">$999 <small>$1099</small></div>
+              <a href="janus-buy:iPhone 15 Pro:999.00">Buy</a>
+            </div>
+          </div>
+
+          <div class="phone-card">
+            <div class="phone-thumb">
+              <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=500&q=80" alt="Samsung Galaxy S24 Ultra">
+            </div>
+            <div class="phone-body">
+              <div class="phone-brand">Samsung</div>
+              <div class="phone-name">Galaxy S24 Ultra</div>
+              <div class="phone-specs">6.8" · 512GB · S Pen</div>
+              <div class="phone-price">$1199 <small>$1299</small></div>
+              <a href="janus-buy:Galaxy S24 Ultra:1199.00">Buy</a>
+            </div>
+          </div>
+
+          <div class="phone-card">
+            <div class="phone-thumb">
+              <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=500&q=80" alt="Google Pixel 8 Pro">
+            </div>
+            <div class="phone-body">
+              <div class="phone-brand">Google</div>
+              <div class="phone-name">Pixel 8 Pro</div>
+              <div class="phone-specs">6.7" · 128GB · Tensor G3</div>
+              <div class="phone-price">$799 <small>$899</small></div>
+              <a href="janus-buy:Pixel 8 Pro:799.00">Buy</a>
+            </div>
+          </div>
+
+          <div class="phone-card">
+            <div class="phone-thumb">
+              <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80" alt="OnePlus 12">
+            </div>
+            <div class="phone-body">
+              <div class="phone-brand">OnePlus</div>
+              <div class="phone-name">OnePlus 12</div>
+              <div class="phone-specs">6.7" · 256GB · 100W charge</div>
+              <div class="phone-price">$699 <small>$799</small></div>
+              <a href="janus-buy:OnePlus 12:699.00">Buy</a>
+            </div>
+          </div>
+
+          <div class="phone-card">
+            <div class="phone-thumb">
+              <img src="https://images.unsplash.com/photo-1567581935884-3349723552ca?auto=format&fit=crop&w=500&q=80" alt="Xiaomi 14">
+            </div>
+            <div class="phone-body">
+              <div class="phone-brand">Xiaomi</div>
+              <div class="phone-name">Xiaomi 14</div>
+              <div class="phone-specs">6.36" · 256GB · Leica camera</div>
+              <div class="phone-price">$649 <small>$749</small></div>
+              <a href="janus-buy:Xiaomi 14:649.00">Buy</a>
+            </div>
+          </div>
+
+          <div class="phone-card">
+            <div class="phone-thumb">
+              <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=500&q=80" alt="Nothing Phone (2)">
+            </div>
+            <div class="phone-body">
+              <div class="phone-brand">Nothing</div>
+              <div class="phone-name">Phone (2)</div>
+              <div class="phone-specs">6.7" · 256GB · Glyph interface</div>
+              <div class="phone-price">$499 <small>$599</small></div>
+              <a href="janus-buy:Nothing Phone (2):499.00">Buy</a>
+            </div>
+          </div>
+
+          <div class="phone-card">
+            <div class="phone-thumb">
+              <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=500&q=80" alt="Samsung Galaxy A55">
+            </div>
+            <div class="phone-body">
+              <div class="phone-brand">Samsung</div>
+              <div class="phone-name">Galaxy A55</div>
+              <div class="phone-specs">6.6" · 128GB · Budget pick</div>
+              <div class="phone-price">$349 <small>$399</small></div>
+              <a href="janus-buy:Galaxy A55:349.00">Buy</a>
+            </div>
+          </div>
+
+          <div class="phone-card">
+            <div class="phone-thumb">
+              <img src="https://images.unsplash.com/photo-1585060544812-6b45742d762f?auto=format&fit=crop&w=500&q=80" alt="Apple iPhone 13">
+            </div>
+            <div class="phone-body">
+              <div class="phone-brand">Apple</div>
+              <div class="phone-name">iPhone 13</div>
+              <div class="phone-specs">6.1" · 128GB · Great value</div>
+              <div class="phone-price">$599 <small>$699</small></div>
+              <a href="janus-buy:iPhone 13:599.00">Buy</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
     <!-- ABOUT / FEATURES -->
-    <section id="about" class="section-light">
+    <section id="about" class="section-gray">
       <div class="container">
         <h2>Why choose MobiCraft?</h2>
         <p class="section-subhead">We're not just a shop — we're your local mobile experts, committed to honest advice and long‑term support.</p>
@@ -742,7 +941,7 @@
     </section>
 
     <!-- SERVICES / MENU (plans & services) -->
-    <section id="services" class="section-gray">
+    <section id="services" class="section-light">
       <div class="container">
         <h2>Services & plans</h2>
         <p class="section-subhead">Simple, transparent options for every need. No hidden fees, ever.</p>
@@ -756,7 +955,7 @@
               <li>Free screen protector</li>
               <li>Basic device protection</li>
             </ul>
-            <a href="#contact" class="btn btn-outline" style="width:100%; text-align:center;">Choose plan</a>
+            <a href="janus-buy:Essential Plan:29.00" class="btn btn-outline" style="width:100%; text-align:center;">Buy</a>
           </div>
           <div class="service-card">
             <h3>Premium</h3>
@@ -767,7 +966,7 @@
               <li>Free case + protector</li>
               <li>Full accidental coverage</li>
             </ul>
-            <a href="#contact" class="btn" style="width:100%; text-align:center;">Choose plan</a>
+            <a href="janus-buy:Premium Plan:49.00" class="btn" style="width:100%; text-align:center;">Buy</a>
           </div>
           <div class="service-card">
             <h3>Repair only</h3>
@@ -778,20 +977,20 @@
               <li>Charging port fix</li>
               <li>90‑day warranty</li>
             </ul>
-            <a href="#contact" class="btn btn-outline" style="width:100%; text-align:center;">Book repair</a>
+            <a href="janus-buy:Repair Service:59.00" class="btn btn-outline" style="width:100%; text-align:center;">Buy</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- TESTIMONIALS -->
-    <section id="testimonials" class="section-light">
+    <section id="testimonials" class="section-gray">
       <div class="container">
         <h2>What our customers say</h2>
         <p class="section-subhead">Over 2,300 happy customers and counting — here's a few of their stories.</p>
         <div class="testimonial-grid">
           <div class="testimonial-card">
-            <div class="testimonial-text">“I cracked my screen on a Friday and had it fixed by Saturday noon. Fair price, friendly staff, and they even cleaned my charging port for free.”</div>
+            <div class="testimonial-text">“I cracked my screen on a Friday and had it fixed by Saturday noon. Fair price, friendlystaff, and they even cleaned my charging port for free.”</div>
             <div class="testimonial-author">
               <div class="avatar">JD</div>
               <div class="author-info">
@@ -825,7 +1024,7 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section-gray">
+    <section id="contact" class="section-light">
       <div class="container">
         <h2>Visit or get in touch</h2>
         <p class="section-subhead">We're here to help — drop by, call, or send a message. We usually reply within an hour.</p>
@@ -891,19 +1090,19 @@
         <div class="footer-col">
           <h4>Shop</h4>
           <ul>
-            <li><a href="#">New phones</a></li>
-            <li><a href="#">Certified pre‑owned</a></li>
-            <li><a href="#">Accessories</a></li>
-            <li><a href="#">Trade‑in program</a></li>
+            <li><a href="#phones">New phones</a></li>
+            <li><a href="#phones">Certified pre‑owned</a></li>
+            <li><a href="#phones">Accessories</a></li>
+            <li><a href="#phones">Trade‑in program</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Support</h4>
           <ul>
-            <li><a href="#">Repair services</a></li>
-            <li><a href="#">Warranty</a></li>
-            <li><a href="#">Contact us</a></li>
-            <li><a href="#">FAQs</a></li>
+            <li><a href="#services">Repair services</a></li>
+            <li><a href="#services">Warranty</a></li>
+            <li><a href="#contact">Contact us</a></li>
+            <li><a href="#contact">FAQs</a></li>
           </ul>
         </div>
         <div class="footer-col">
