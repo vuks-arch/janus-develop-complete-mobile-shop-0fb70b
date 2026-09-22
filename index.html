@@ -162,6 +162,52 @@
       cursor: pointer;
     }
 
+    /* ---------- CART BUTTON (header) ---------- */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .cart-btn {
+      position: relative;
+      background: var(--primary-soft);
+      border: none;
+      color: var(--primary);
+      font-size: 1.3rem;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .cart-btn:hover {
+      background: #d3e4f4;
+      transform: translateY(-2px);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: var(--accent);
+      color: #0b1b2f;
+      font-size: 0.72rem;
+      font-weight: 700;
+      min-width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
     /* ---------- HERO ---------- */
     .hero {
       background: linear-gradient(135deg, #eef6fd 0%, #ffffff 100%);
@@ -645,6 +691,225 @@
       color: var(--accent);
     }
 
+    /* ---------- CART DRAWER ---------- */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 27, 47, 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+      z-index: 90;
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 400px;
+      max-width: 92vw;
+      background: var(--card-white);
+      box-shadow: -12px 0 40px rgba(0, 0, 0, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .cart-header h3 {
+      font-size: 1.3rem;
+      color: var(--dark);
+    }
+
+    .cart-close {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      line-height: 1;
+      color: #5e7a94;
+      cursor: pointer;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .cart-close:hover {
+      background: var(--gray-bg);
+      color: var(--dark);
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.5rem;
+    }
+
+    .cart-empty {
+      text-align: center;
+      color: #5e7a94;
+      padding: 3rem 1rem;
+      font-size: 1rem;
+    }
+
+    .cart-empty .big {
+      font-size: 2.6rem;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 0.9rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid #eef2f7;
+      align-items: center;
+    }
+
+    .cart-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cart-item-name {
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 0.98rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .cart-item-price {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .cart-qty {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .cart-qty button {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #f9fcff;
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      line-height: 1;
+      transition: background 0.15s;
+    }
+
+    .cart-qty button:hover {
+      background: var(--primary-soft);
+    }
+
+    .cart-qty span {
+      min-width: 22px;
+      text-align: center;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .cart-remove {
+      background: none;
+      border: none;
+      color: #b0bfcd;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.3rem;
+      border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .cart-remove:hover {
+      color: #d9534f;
+      background: #fdecec;
+    }
+
+    .cart-footer {
+      padding: 1.4rem 1.5rem;
+      border-top: 1px solid #e2e8f0;
+      background: #f9fcff;
+    }
+
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.1rem;
+    }
+
+    .cart-total-row span {
+      color: #3e5a73;
+      font-size: 1rem;
+    }
+
+    .cart-total-row strong {
+      font-size: 1.6rem;
+      color: var(--dark);
+    }
+
+    .cart-footer .btn {
+      width: 100%;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .cart-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #5e7a94;
+      margin-top: 0.8rem;
+    }
+
+    /* toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--dark);
+      color: white;
+      padding: 0.85rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+      z-index: 200;
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 900px) {
       .hero-grid {
@@ -762,7 +1027,12 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+      <div class="nav-right">
+        <button class="cart-btn" id="cartBtn" aria-label="Open cart">
+          🛒<span class="cart-count" id="cartCount" style="display:none;">0</span>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+      </div>
     </div>
     <!-- mobile nav dropdown -->
     <div class="mobile-nav" id="mobileNav">
@@ -811,7 +1081,7 @@
               <div class="phone-name">iPhone 15 Pro</div>
               <div class="phone-specs">6.1" · 256GB · Titanium</div>
               <div class="phone-price">$999 <small>$1099</small></div>
-              <a href="janus-buy:iPhone 15 Pro:999.00">Buy</a>
+              <a href="janus-buy:iPhone 15 Pro:999.00" class="btn" data-name="iPhone 15 Pro" data-price="999.00">Buy</a>
             </div>
           </div>
 
@@ -824,7 +1094,7 @@
               <div class="phone-name">Galaxy S24 Ultra</div>
               <div class="phone-specs">6.8" · 512GB · S Pen</div>
               <div class="phone-price">$1199 <small>$1299</small></div>
-              <a href="janus-buy:Galaxy S24 Ultra:1199.00">Buy</a>
+              <a href="janus-buy:Galaxy S24 Ultra:1199.00" class="btn" data-name="Galaxy S24 Ultra" data-price="1199.00">Buy</a>
             </div>
           </div>
 
@@ -837,7 +1107,7 @@
               <div class="phone-name">Pixel 8 Pro</div>
               <div class="phone-specs">6.7" · 128GB · Tensor G3</div>
               <div class="phone-price">$799 <small>$899</small></div>
-              <a href="janus-buy:Pixel 8 Pro:799.00">Buy</a>
+              <a href="janus-buy:Pixel 8 Pro:799.00" class="btn" data-name="Pixel 8 Pro" data-price="799.00">Buy</a>
             </div>
           </div>
 
@@ -850,7 +1120,7 @@
               <div class="phone-name">OnePlus 12</div>
               <div class="phone-specs">6.7" · 256GB · 100W charge</div>
               <div class="phone-price">$699 <small>$799</small></div>
-              <a href="janus-buy:OnePlus 12:699.00">Buy</a>
+              <a href="janus-buy:OnePlus 12:699.00" class="btn" data-name="OnePlus 12" data-price="699.00">Buy</a>
             </div>
           </div>
 
@@ -863,7 +1133,7 @@
               <div class="phone-name">Xiaomi 14</div>
               <div class="phone-specs">6.36" · 256GB · Leica camera</div>
               <div class="phone-price">$649 <small>$749</small></div>
-              <a href="janus-buy:Xiaomi 14:649.00">Buy</a>
+              <a href="janus-buy:Xiaomi 14:649.00" class="btn" data-name="Xiaomi 14" data-price="649.00">Buy</a>
             </div>
           </div>
 
@@ -876,7 +1146,7 @@
               <div class="phone-name">Phone (2)</div>
               <div class="phone-specs">6.7" · 256GB · Glyph interface</div>
               <div class="phone-price">$499 <small>$599</small></div>
-              <a href="janus-buy:Nothing Phone (2):499.00">Buy</a>
+              <a href="janus-buy:Nothing Phone (2):499.00" class="btn" data-name="Nothing Phone (2)" data-price="499.00">Buy</a>
             </div>
           </div>
 
@@ -889,7 +1159,7 @@
               <div class="phone-name">Galaxy A55</div>
               <div class="phone-specs">6.6" · 128GB · Budget pick</div>
               <div class="phone-price">$349 <small>$399</small></div>
-              <a href="janus-buy:Galaxy A55:349.00">Buy</a>
+              <a href="janus-buy:Galaxy A55:349.00" class="btn" data-name="Galaxy A55" data-price="349.00">Buy</a>
             </div>
           </div>
 
@@ -902,7 +1172,7 @@
               <div class="phone-name">iPhone 13</div>
               <div class="phone-specs">6.1" · 128GB · Great value</div>
               <div class="phone-price">$599 <small>$699</small></div>
-              <a href="janus-buy:iPhone 13:599.00">Buy</a>
+              <a href="janus-buy:iPhone 13:599.00" class="btn" data-name="iPhone 13" data-price="599.00">Buy</a>
             </div>
           </div>
 
@@ -955,7 +1225,7 @@
               <li>Free screen protector</li>
               <li>Basic device protection</li>
             </ul>
-            <a href="janus-buy:Essential Plan:29.00" class="btn btn-outline" style="width:100%; text-align:center;">Buy</a>
+            <a href="janus-buy:Essential Plan:29.00" class="btn btn-outline" style="width:100%; text-align:center;" data-name="Essential Plan" data-price="29.00">Buy</a>
           </div>
           <div class="service-card">
             <h3>Premium</h3>
@@ -966,7 +1236,7 @@
               <li>Free case + protector</li>
               <li>Full accidental coverage</li>
             </ul>
-            <a href="janus-buy:Premium Plan:49.00" class="btn" style="width:100%; text-align:center;">Buy</a>
+            <a href="janus-buy:Premium Plan:49.00" class="btn" style="width:100%; text-align:center;" data-name="Premium Plan" data-price="49.00">Buy</a>
           </div>
           <div class="service-card">
             <h3>Repair only</h3>
@@ -977,7 +1247,7 @@
               <li>Charging port fix</li>
               <li>90‑day warranty</li>
             </ul>
-            <a href="janus-buy:Repair Service:59.00" class="btn btn-outline" style="width:100%; text-align:center;">Buy</a>
+            <a href="janus-buy:Repair Service:59.00" class="btn btn-outline" style="width:100%; text-align:center;" data-name="Repair Service" data-price="59.00">Buy</a>
           </div>
         </div>
       </div>
@@ -1122,6 +1392,32 @@
     </div>
   </footer>
 
+  <!-- CART DRAWER -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+    <div class="cart-header">
+      <h3>Your cart</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close cart">×</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <span class="big">🛒</span>
+        Your cart is empty.<br>Add a phone or plan to get started.
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total</span>
+        <strong id="cartTotal">$0.00</strong>
+      </div>
+      <a href="#contact" class="btn" id="cartCheckout">Checkout</a>
+      <div class="cart-note">Secure checkout · Free delivery on phones</div>
+    </div>
+  </aside>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">✓ Added to cart</div>
+
   <!-- tiny script for mobile nav toggle -->
   <script>
     (function() {
@@ -1145,6 +1441,153 @@
           }
         });
       }
+    })();
+  </script>
+
+  <!-- CART SCRIPT -->
+  <script>
+    (function() {
+      const STORAGE_KEY = 'mobicraft_cart_v1';
+      let cart = [];
+
+      const cartBtn = document.getElementById('cartBtn');
+      const cartDrawer = document.getElementById('cartDrawer');
+      const cartOverlay = document.getElementById('cartOverlay');
+      const cartClose = document.getElementById('cartClose');
+      const cartItemsEl = document.getElementById('cartItems');
+      const cartTotalEl = document.getElementById('cartTotal');
+      const cartCountEl = document.getElementById('cartCount');
+      const toast = document.getElementById('toast');
+
+      // load saved cart
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) cart = JSON.parse(saved) || [];
+      } catch (e) { cart = []; }
+
+      function save() {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch (e) {}
+      }
+
+      function money(n) {
+        return '$' + Number(n).toFixed(2);
+      }
+
+      function openCart() {
+        cartDrawer.classList.add('open');
+        cartOverlay.classList.add('open');
+      }
+
+      function closeCart() {
+        cartDrawer.classList.remove('open');
+        cartOverlay.classList.remove('open');
+      }
+
+      let toastTimer = null;
+      function showToast(msg) {
+        toast.textContent = '✓ ' + msg;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
+      }
+
+      function addToCart(name, price) {
+        const existing = cart.find(i => i.name === name);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({ name: name, price: Number(price), qty: 1 });
+        }
+        save();
+        render();
+        showToast(name + ' added');
+      }
+
+      function changeQty(name, delta) {
+        const item = cart.find(i => i.name === name);
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) {
+          cart = cart.filter(i => i.name !== name);
+        }
+        save();
+        render();
+      }
+
+      function removeItem(name) {
+        cart = cart.filter(i => i.name !== name);
+        save();
+        render();
+      }
+
+      function render() {
+        // count badge
+        const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+        if (totalQty > 0) {
+          cartCountEl.textContent = totalQty;
+          cartCountEl.style.display = 'flex';
+        } else {
+          cartCountEl.style.display = 'none';
+        }
+
+        // items
+        if (cart.length === 0) {
+          cartItemsEl.innerHTML = '<div class="cart-empty"><span class="big">🛒</span>Your cart is empty.<br>Add a phone or plan to get started.</div>';
+        } else {
+          cartItemsEl.innerHTML = cart.map(item => `
+            <div class="cart-item">
+              <div class="cart-item-info">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-price">${money(item.price)} each</div>
+                <div class="cart-qty">
+                  <button data-act="dec" data-name="${item.name}" aria-label="Decrease">−</button>
+                  <span>${item.qty}</span>
+                  <button data-act="inc" data-name="${item.name}" aria-label="Increase">+</button>
+                </div>
+              </div>
+              <button class="cart-remove" data-act="remove" data-name="${item.name}" aria-label="Remove">🗑</button>
+            </div>
+          `).join('');
+        }
+
+        // total
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        cartTotalEl.textContent = money(total);
+      }
+
+      // event delegation for qty / remove
+      cartItemsEl.addEventListener('click', function(e) {
+        const btn = e.target.closest('button[data-act]');
+        if (!btn) return;
+        const name = btn.getAttribute('data-name');
+        const act = btn.getAttribute('data-act');
+        if (act === 'inc') changeQty(name, 1);
+        else if (act === 'dec') changeQty(name, -1);
+        else if (act === 'remove') removeItem(name);
+      });
+
+      // hook up all Buy buttons
+      document.querySelectorAll('a[data-name][data-price]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          addToCart(btn.getAttribute('data-name'), btn.getAttribute('data-price'));
+          openCart();
+        });
+      });
+
+      cartBtn.addEventListener('click', openCart);
+      cartClose.addEventListener('click', closeCart);
+      cartOverlay.addEventListener('click', closeCart);
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeCart();
+      });
+
+      // checkout closes drawer and scrolls to contact
+      document.getElementById('cartCheckout').addEventListener('click', function() {
+        closeCart();
+      });
+
+      render();
     })();
   </script>
 </body>
