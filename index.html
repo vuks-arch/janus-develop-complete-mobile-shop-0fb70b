@@ -1,1 +1,952 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>develop a complete website for a mobile shop</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:system-ui,-apple-system,sans-serif;background:#0a0e1a;color:#e8ecf6}.c{text-align:center;padding:24px}h1{font-size:34px;margin:0 0 8px;letter-spacing:-.5px}p{color:#8b93a7;margin:4px 0}.t{margin-top:20px;font-size:12px;color:#5b6478}</style></head><body><div class="c"><h1>develop a complete website for a mobile shop</h1><p>Edit index.html and push — it deploys automatically.</p><p class="t">Staged with Janus.</p></div></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MobiCraft · premium mobile shop</title>
+  <style>
+    /* ---------- RESET & GLOBAL ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background-color: #f8fafc;
+      color: #0b1b2f;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* ---------- COLOUR SCHEME (cohesive blues + warm accent) ---------- */
+    :root {
+      --primary: #0a4b7a;
+      --primary-light: #1e6b9e;
+      --primary-soft: #e2edf7;
+      --accent: #f5a623;
+      --accent-dark: #d18a0e;
+      --dark: #0b1b2f;
+      --gray-bg: #f1f5f9;
+      --card-white: #ffffff;
+      --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.03);
+      --radius: 24px;
+      --radius-sm: 16px;
+    }
+
+    /* ---------- TYPOGRAPHY & UTILS ---------- */
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .section-subhead {
+      font-size: 1.1rem;
+      color: #3e5a73;
+      max-width: 680px;
+      margin-bottom: 2.5rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--accent);
+      color: #0b1b2f;
+      font-weight: 600;
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 6px 14px rgba(245, 166, 35, 0.3);
+    }
+
+    .btn:hover {
+      background-color: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 20px rgba(245, 166, 35, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      box-shadow: none;
+      padding: 0.75rem 2rem;
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 8px 18px rgba(10, 75, 122, 0.2);
+    }
+
+    /* ---------- HEADER / NAV ---------- */
+    .site-header {
+      background-color: var(--card-white);
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(4px);
+      background-color: rgba(255, 255, 255, 0.92);
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .logo span {
+      color: var(--accent);
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #1e3a5f;
+      transition: color 0.15s;
+      font-size: 1rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-dark);
+    }
+
+    /* mobile nav toggle (simple) */
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      background: linear-gradient(135deg, #eef6fd 0%, #ffffff 100%);
+      padding: 4rem 0 5rem;
+      border-bottom: 1px solid rgba(10, 75, 122, 0.08);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .hero-content h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1.2rem;
+      line-height: 1.15;
+    }
+
+    .hero-content h1 span {
+      color: var(--primary);
+      border-bottom: 4px solid var(--accent);
+      display: inline-block;
+      padding-bottom: 0.1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #2d4b6b;
+      margin-bottom: 2rem;
+      max-width: 500px;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .hero-image {
+      background: radial-gradient(circle at 30% 30%, #d9e9fa, #b7d2ed);
+      border-radius: 40% 60% 30% 70% / 50% 40% 60% 50%;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+      aspect-ratio: 1 / 1;
+      max-width: 420px;
+      justify-self: center;
+    }
+
+    .hero-image svg {
+      width: 80%;
+      height: auto;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.1));
+    }
+
+    /* ---------- SECTIONS (general) ---------- */
+    section {
+      padding: 5rem 0;
+    }
+
+    .section-light {
+      background-color: var(--card-white);
+    }
+
+    .section-gray {
+      background-color: var(--gray-bg);
+    }
+
+    /* ---------- ABOUT (features) ---------- */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: var(--card-white);
+      padding: 2rem 1.8rem;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid rgba(10, 75, 122, 0.05);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .feature-icon {
+      background: var(--primary-soft);
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: var(--dark);
+    }
+
+    .feature-card p {
+      color: #3e5a73;
+      font-size: 0.98rem;
+    }
+
+    /* ---------- SERVICES / MENU (phone plans) ---------- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .service-card {
+      background: var(--card-white);
+      border-radius: var(--radius-sm);
+      padding: 2rem 1.8rem;
+      box-shadow: var(--shadow-sm);
+      border-top: 6px solid var(--accent);
+      transition: all 0.2s;
+    }
+
+    .service-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .service-card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .service-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0.75rem 0 1rem;
+    }
+
+    .service-price small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #5e7a94;
+    }
+
+    .service-list {
+      list-style: none;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .service-list li {
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #1e3a5f;
+    }
+
+    .service-list li::before {
+      content: "✓";
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* ---------- TESTIMONIALS / GALLERY ---------- */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .testimonial-card {
+      background: var(--card-white);
+      padding: 2rem 1.8rem;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(10, 75, 122, 0.06);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      color: #1e3a5f;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--primary-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .author-info strong {
+      display: block;
+      color: var(--dark);
+    }
+
+    .author-info span {
+      font-size: 0.85rem;
+      color: #5e7a94;
+    }
+
+    /* ---------- CONTACT ---------- */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .contact-icon {
+      background: var(--primary-soft);
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item p {
+      color: #1e3a5f;
+      font-size: 1rem;
+      margin-top: 0.2rem;
+    }
+
+    .contact-item strong {
+      color: var(--dark);
+      font-size: 1.1rem;
+    }
+
+    .contact-form {
+      background: var(--card-white);
+      padding: 2rem;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: var(--dark);
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: #f9fcff;
+      transition: border 0.15s, box-shadow 0.15s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 4px rgba(30, 107, 158, 0.15);
+    }
+
+    .contact-form .btn {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.05rem;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .site-footer {
+      background-color: var(--dark);
+      color: #b9cdde;
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-col h4 {
+      color: white;
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      font-weight: 600;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col li {
+      margin-bottom: 0.7rem;
+    }
+
+    .footer-col a {
+      color: #b9cdde;
+      text-decoration: none;
+      transition: color 0.15s;
+      font-size: 0.95rem;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .social-links a {
+      color: #b9cdde;
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: color 0.15s;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-content p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-cta {
+        justify-content: center;
+      }
+
+      .hero-image {
+        max-width: 320px;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      h2 {
+        font-size: 1.9rem;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-bar {
+        padding: 0.9rem 1.2rem;
+      }
+
+      .hero {
+        padding: 2.5rem 0 3rem;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .btn {
+        padding: 0.8rem 1.6rem;
+      }
+
+      section {
+        padding: 3.5rem 0;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    /* simple mobile nav (hidden by default) */
+    .mobile-nav {
+      display: none;
+      background: white;
+      padding: 1rem 1.5rem 1.5rem;
+      border-top: 1px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mobile-nav.active {
+      display: block;
+    }
+
+    .mobile-nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mobile-nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+
+    /* decorative svg phone */
+    .phone-svg {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER / NAV -->
+  <header class="site-header">
+    <div class="nav-bar">
+      <a href="#" class="logo">
+        <span>◈</span> MobiCraft
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    </div>
+    <!-- mobile nav dropdown -->
+    <div class="mobile-nav" id="mobileNav">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1>Your perfect phone, <span>expertly curated</span></h1>
+          <p>Discover the latest smartphones, accessories, and repair services — all under one roof. Trade in, upgrade, and get personal advice from real tech enthusiasts.</p>
+          <div class="hero-cta">
+            <a href="#services" class="btn">Explore devices</a>
+            <a href="#contact" class="btn btn-outline">Visit us</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <!-- inline SVG phone illustration -->
+          <svg class="phone-svg" viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="25" y="10" width="150" height="300" rx="28" fill="#0A4B7A" stroke="#F5A623" stroke-width="4"/>
+            <rect x="40" y="40" width="120" height="220" rx="12" fill="#E2EDF7"/>
+            <circle cx="100" cy="285" r="12" fill="#F5A623"/>
+            <rect x="65" y="70" width="70" height="8" rx="4" fill="#0A4B7A" opacity="0.3"/>
+            <rect x="65" y="90" width="70" height="8" rx="4" fill="#0A4B7A" opacity="0.3"/>
+            <rect x="65" y="110" width="50" height="8" rx="4" fill="#0A4B7A" opacity="0.3"/>
+            <rect x="65" y="140" width="70" height="40" rx="8" fill="#1E6B9E" opacity="0.2"/>
+            <rect x="65" y="195" width="70" height="40" rx="8" fill="#1E6B9E" opacity="0.2"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT / FEATURES -->
+    <section id="about" class="section-light">
+      <div class="container">
+        <h2>Why choose MobiCraft?</h2>
+        <p class="section-subhead">We're not just a shop — we're your local mobile experts, committed to honest advice and long‑term support.</p>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3>Latest models</h3>
+            <p>From flagship to budget‑friendly, we stock the newest releases and certified pre‑owned devices.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3>Expert repairs</h3>
+            <p>Screen replacements, battery swaps, water damage — done in‑house with a 90‑day warranty.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3>Trade‑in & upgrade</h3>
+            <p>Get instant credit for your old phone and walk out with a brand new one the same day.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Extended protection</h3>
+            <p>Accidental damage, theft, and out‑of‑warranty coverage — all with transparent pricing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES / MENU (plans & services) -->
+    <section id="services" class="section-gray">
+      <div class="container">
+        <h2>Services & plans</h2>
+        <p class="section-subhead">Simple, transparent options for every need. No hidden fees, ever.</p>
+        <div class="services-grid">
+          <div class="service-card">
+            <h3>Essential</h3>
+            <div class="service-price">$29<small>/month</small></div>
+            <ul class="service-list">
+              <li>Unlimited talk & text</li>
+              <li>5GB high‑speed data</li>
+              <li>Free screen protector</li>
+              <li>Basic device protection</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline" style="width:100%; text-align:center;">Choose plan</a>
+          </div>
+          <div class="service-card">
+            <h3>Premium</h3>
+            <div class="service-price">$49<small>/month</small></div>
+            <ul class="service-list">
+              <li>Unlimited everything</li>
+              <li>25GB high‑speed data</li>
+              <li>Free case + protector</li>
+              <li>Full accidental coverage</li>
+            </ul>
+            <a href="#contact" class="btn" style="width:100%; text-align:center;">Choose plan</a>
+          </div>
+          <div class="service-card">
+            <h3>Repair only</h3>
+            <div class="service-price">from $59</div>
+            <ul class="service-list">
+              <li>Screen replacement</li>
+              <li>Battery service</li>
+              <li>Charging port fix</li>
+              <li>90‑day warranty</li>
+            </ul>
+            <a href="#contact" class="btn btn-outline" style="width:100%; text-align:center;">Book repair</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section-light">
+      <div class="container">
+        <h2>What our customers say</h2>
+        <p class="section-subhead">Over 2,300 happy customers and counting — here's a few of their stories.</p>
+        <div class="testimonial-grid">
+          <div class="testimonial-card">
+            <div class="testimonial-text">“I cracked my screen on a Friday and had it fixed by Saturday noon. Fair price, friendly staff, and they even cleaned my charging port for free.”</div>
+            <div class="testimonial-author">
+              <div class="avatar">JD</div>
+              <div class="author-info">
+                <strong>Jamie D.</strong>
+                <span>Verified customer</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-text">“Traded in my old iPhone and got a great deal on the latest Samsung. The whole process took 20 minutes. Highly recommend MobiCraft.”</div>
+            <div class="testimonial-author">
+              <div class="avatar">SP</div>
+              <div class="author-info">
+                <strong>Sofia P.</strong>
+                <span>Upgraded to Galaxy S24</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-text">“They helped me pick a budget phone that actually fits my needs. No pushy sales talk — just honest advice. I'll be back for accessories.”</div>
+            <div class="testimonial-author">
+              <div class="avatar">MR</div>
+              <div class="author-info">
+                <strong>Marcus R.</strong>
+                <span>First‑time buyer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section-gray">
+      <div class="container">
+        <h2>Visit or get in touch</h2>
+        <p class="section-subhead">We're here to help — drop by, call, or send a message. We usually reply within an hour.</p>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <strong>MobiCraft Store</strong>
+                <p>142 Tech Avenue, Suite 5<br>San Francisco, CA 94107</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <strong>Phone</strong>
+                <p>(415) 555‑0198</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div>
+                <strong>Email</strong>
+                <p>hello@mobicraft.shop</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🕒</div>
+              <div>
+                <strong>Opening hours</strong>
+                <p>Mon–Sat: 9am – 8pm<br>Sunday: 11am – 5pm</p>
+              </div>
+            </div>
+          </div>
+          <form class="contact-form" action="#" method="post">
+            <div class="form-group">
+              <label for="name">Full name</label>
+              <input type="text" id="name" placeholder="Alex Johnson" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" placeholder="alex@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="message">How can we help?</label>
+              <textarea id="message" rows="4" placeholder="I'd like to ask about a screen repair..." required></textarea>
+            </div>
+            <button type="submit" class="btn">Send message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>MobiCraft</h4>
+          <p style="font-size:0.95rem; line-height:1.6; color:#b9cdde;">Your trusted local mobile shop since 2015. Devices, repairs, and honest advice.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#">New phones</a></li>
+            <li><a href="#">Certified pre‑owned</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Trade‑in program</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Repair services</a></li>
+            <li><a href="#">Warranty</a></li>
+            <li><a href="#">Contact us</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Follow</h4>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="Twitter">🐦</a>
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="YouTube">▶️</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 MobiCraft. All rights reserved.</span>
+        <span>Privacy Policy · Terms of Service</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- tiny script for mobile nav toggle -->
+  <script>
+    (function() {
+      const toggle = document.getElementById('menuToggle');
+      const mobileNav = document.getElementById('mobileNav');
+      if (toggle && mobileNav) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          mobileNav.classList.toggle('active');
+        });
+        // close when clicking a link
+        mobileNav.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+          });
+        });
+        // close on outside click (optional)
+        document.addEventListener('click', function(e) {
+          if (!mobileNav.contains(e.target) && e.target !== toggle) {
+            mobileNav.classList.remove('active');
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
