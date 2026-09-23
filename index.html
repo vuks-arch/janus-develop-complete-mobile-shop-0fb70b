@@ -624,6 +624,22 @@
       font-size: 1.05rem;
     }
 
+    .form-success {
+      display: none;
+      background: #e6f7ee;
+      border: 1px solid #9fdcb8;
+      color: #14663a;
+      padding: 1rem 1.2rem;
+      border-radius: 14px;
+      font-size: 0.98rem;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+
+    .form-success.show {
+      display: block;
+    }
+
     /* ---------- FOOTER ---------- */
     .site-footer {
       background-color: var(--dark);
@@ -1010,7 +1026,7 @@
       max-width: 100%;
     }
   </style>
-</head>
+<style><!--janus-print-->@media print{#jp-cart-toggle,#jp-cart,#jp-top,#jp-cookie,#jp-dark-btn,#jp-announce,[href^="https://wa.me"]{display:none!important}body{background:#fff!important;color:#000!important}a{text-decoration:underline}}</style></head>
 <body>
   <!-- HEADER / NAV -->
   <header class="site-header">
@@ -1329,18 +1345,19 @@
               </div>
             </div>
           </div>
-          <form class="contact-form" action="#" method="post">
+          <form class="contact-form" id="contactForm" action="#" method="post" novalidate data-janus-form>
+            <div class="form-success" id="formSuccess">✓ Thanks! Your message has been sent — we'll reply within an hour.</div>
             <div class="form-group">
               <label for="name">Full name</label>
-              <input type="text" id="name" placeholder="Alex Johnson" required>
+              <input type="text" id="name" name="name" placeholder="Alex Johnson" required>
             </div>
             <div class="form-group">
               <label for="email">Email address</label>
-              <input type="email" id="email" placeholder="alex@example.com" required>
+              <input type="email" id="email" name="email" placeholder="alex@example.com" required>
             </div>
             <div class="form-group">
               <label for="message">How can we help?</label>
-              <textarea id="message" rows="4" placeholder="I'd like to ask about a screen repair..." required></textarea>
+              <textarea id="message" name="message" rows="4" placeholder="I'd like to ask about a screen repair..." required></textarea>
             </div>
             <button type="submit" class="btn">Send message</button>
           </form>
@@ -1441,6 +1458,34 @@
           }
         });
       }
+    })();
+  </script>
+
+  <!-- CONTACT FORM SCRIPT -->
+  <script>
+    (function() {
+      const form = document.getElementById('contactForm');
+      const success = document.getElementById('formSuccess');
+      if (!form) return;
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = form.querySelector('#name');
+        const email = form.querySelector('#email');
+        const message = form.querySelector('#message');
+        // simple validation
+        if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
+          alert('Please fill in your name, email and message.');
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+          alert('Please enter a valid email address.');
+          return;
+        }
+        // show confirmation
+        success.classList.add('show');
+        form.reset();
+        setTimeout(() => success.classList.remove('show'), 6000);
+      });
     })();
   </script>
 
@@ -1590,5 +1635,37 @@
       render();
     })();
   </script>
+
+<script><!--janus-forms-->
+(function(){
+  var EP = "https://janus.joonbeauty.com/api/form/web_develop_complete_mobile_shop";
+  document.querySelectorAll('form[data-janus-form]').forEach(function(f){
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var hp = f.querySelector('[name=_hp]'); if (hp && hp.value) return;
+      var btn = f.querySelector('button,[type=submit]'); if (btn) btn.disabled = true;
+      var body = new URLSearchParams(new FormData(f)).toString();
+      fetch(EP, {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:body})
+        .then(function(r){ if(!r.ok) throw 0;
+          var m = document.createElement('p'); m.textContent = 'Thanks — your message was sent!';
+          m.setAttribute('role','status'); m.style.cssText = 'color:#0a0;font-weight:600';
+          f.replaceChildren(m); })
+        .catch(function(){ if(btn) btn.disabled = false;
+          alert('Sorry, that could not be sent. Please try again.'); });
+    });
+  });
+})();
+</script>
+
+<script><!--janus-analytics-->
+(function(){
+  try {
+    var u = "https://janus.joonbeauty.com/api/track/web_develop_complete_mobile_shop" + "?p=" + encodeURIComponent(location.pathname || "/")
+          + "&r=" + encodeURIComponent(document.referrer || "");
+    if (navigator.sendBeacon) navigator.sendBeacon(u);
+    else fetch(u, {mode: 'no-cors'});
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
