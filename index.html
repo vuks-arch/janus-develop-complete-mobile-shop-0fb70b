@@ -1638,21 +1638,46 @@
 <script><!--janus-forms-->
 (function(){
   var EP = "https://janus.joonbeauty.com/api/form/web_develop_complete_mobile_shop";
-  document.querySelectorAll('form[data-janus-form]').forEach(function(f){
-    f.addEventListener('submit', function(e){
-      e.preventDefault();
-      var hp = f.querySelector('[name=_hp]'); if (hp && hp.value) return;
-      var btn = f.querySelector('button,[type=submit]'); if (btn) btn.disabled = true;
-      var body = new URLSearchParams(new FormData(f)).toString();
-      fetch(EP, {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:body})
-        .then(function(r){ if(!r.ok) throw 0;
-          var m = document.createElement('p'); m.textContent = 'Thanks — your message was sent!';
-          m.setAttribute('role','status'); m.style.cssText = 'color:#0a0;font-weight:600';
-          f.replaceChildren(m); })
-        .catch(function(){ if(btn) btn.disabled = false;
-          alert('Sorry, that could not be sent. Please try again.'); });
+  if (window.__janusForms) return;            // a page must never carry two handlers
+  window.__janusForms = 1;
+  function keyFor(el, i){
+    var c = el.getAttribute('placeholder') || el.getAttribute('aria-label') || el.getAttribute('id') || '';
+    c = c.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 40);
+    if (!c) c = (el.tagName === 'TEXTAREA' ? 'message' : ((el.type || 'field') + '_' + i));
+    return c;
+  }
+  // One listener on the DOCUMENT, in the CAPTURE phase, so it runs BEFORE any handler the page put
+  // on the form itself. Generated pages very often "confirm" a submission in their own handler by
+  // clearing the fields (form.reset()) and showing a thank-you, and a handler bound to the form
+  // runs first when it was registered first — this one then read an already-empty form and stored
+  // an empty message while the visitor was told it had been sent. Capturing reads what the visitor
+  // typed before anything else can touch it.
+  document.addEventListener('submit', function(e){
+    var f = e.target;
+    if (!f || f.nodeType !== 1 || f.tagName !== 'FORM' || !f.hasAttribute('data-janus-form')) return;
+    e.preventDefault();
+    var hp = f.querySelector('[name=_hp]'); if (hp && hp.value) return;
+    // AI-generated forms often omit name= on their fields, so FormData captures nothing and the
+    // owner receives an empty message. Give every value-bearing field a name (from its
+    // placeholder/label/id) before serializing, so the real content is sent.
+    f.querySelectorAll('input,textarea,select').forEach(function(el, i){
+      var t = (el.type || '').toLowerCase();
+      if (!el.name && t !== 'submit' && t !== 'button' && t !== 'file') el.name = keyFor(el, i);
     });
-  });
+    var fd = new FormData(f);
+    var filled = false;
+    fd.forEach(function(v){ if (String(v).trim()) filled = true; });
+    if (!filled) return;                      // nothing typed: never store, or claim, an empty message
+    var btn = f.querySelector('button,[type=submit]'); if (btn) btn.disabled = true;
+    fetch(EP, {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
+               body:new URLSearchParams(fd).toString()})
+      .then(function(r){ if(!r.ok) throw 0;
+        var m = document.createElement('p'); m.textContent = 'Thanks — your message was sent!';
+        m.setAttribute('role','status'); m.style.cssText = 'color:#0a0;font-weight:600';
+        f.replaceChildren(m); })
+      .catch(function(){ if(btn) btn.disabled = false;
+        alert('Sorry, that could not be sent. Please try again.'); });
+  }, true);
 })();
 </script>
 
